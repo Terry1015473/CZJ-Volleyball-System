@@ -1,0 +1,52 @@
+import { useState, useEffect } from 'react';
+import reactLogo from './assets/react.svg';
+import viteLogo from '/vite.svg';
+import { auth, provider } from './firebase';
+import { signInWithPopup, onAuthStateChanged, signOut } from 'firebase/auth';
+import './App.css';
+import Login from './Login';
+import Schedule from './Schedule'
+import Overview from './Overview';
+
+function App() {
+  const [user, setUser] = useState(null);
+  const [showOverview, setShowOverview] = useState(false);
+
+  const handleLogin = async () => {
+    const result = await signInWithPopup(auth, provider);
+    setUser(result.user);
+  };
+
+  const handleLogout = async () => {
+    await signOut(auth);
+    setUser(null);
+  };
+
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsub();
+  }, []);
+
+  return (
+    <div style={{ padding: '20px', fontFamily: 'sans-serif' }}>
+      <h1>CZJ-Volleyball-System</h1>
+      {user ? (
+        <>
+        <p>歡迎 {user.displayName}</p>
+        <button onClick={handleLogout}>登出</button>
+        <button onClick={() => setShowOverview(!showOverview)}>
+          {showOverview ? '返回登記畫面' : '查看出席總覽'}
+        </button>
+        {showOverview ? <Overview/> : <Schedule user={user} />}
+        {/* <Schedule user={user}/> */}
+        </>
+      ) : (
+        <button onClick={handleLogin}>使用 Google 登入</button>
+      )}
+    </div>
+  );
+}
+
+export default App
