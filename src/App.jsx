@@ -26,6 +26,10 @@ function App() {
     const unsub = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
     });
+    const ua = navigator.userAgent || navigator.vendor || window.opera;
+    if (ua.includes(['Line', 'instagram'])) {
+      alert('請使用瀏覽器打開此頁面，以正常使用登入功能');
+    }
     return () => unsub();
   }, []);
 

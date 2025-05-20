@@ -121,7 +121,15 @@ function Schedule({ user }) {
           ref={buttonRef}
           onMouseEnter={handleMouseEnter}
         //   onMouseLeave={handleMouseLeave}
-          onClick={handleSubmit}
+          onClick={ (e) => {
+            if (!name){
+                const offsetX = Math.random() * 100 -50;
+                const offsetY = Math.random() * 100 -50;
+                e.target.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+            } else{
+              handleSubmit();
+            }
+          }}
           style={{
             padding: '10px 20px',
             fontSize: '16px',
