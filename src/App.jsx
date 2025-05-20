@@ -17,7 +17,7 @@ function App() {
 
   const handleLogin = async () => {
     if (password != secretcode){
-      setPasswordError('密碼錯誤，請重新輸入!');
+      setPasswordError('密碼錯誤，請重新輸入');
       return;
     }
     setPasswordError('');
@@ -59,7 +59,7 @@ function App() {
         <div>
           <input
             type="password"
-            placeholder='請輸入密碼!'
+            placeholder='請輸入密碼'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             style = {{ marginRight: '8px'}}
