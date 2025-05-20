@@ -47,7 +47,6 @@ function App() {
   return (
     <div style={{ padding: '20px', fontFamily: 'sans-serif' }}>
       <h1>Welcome to CZJ-Volleyball-System</h1>
-      <LottieAnimation/>
       {user ? (
         <>
         <p>歡迎 {user.displayName}</p>
@@ -60,6 +59,7 @@ function App() {
         </>
       ) : (
         <div>
+          <LottieAnimation/>
           <input
             type="password"
             placeholder='請輸入密碼'
