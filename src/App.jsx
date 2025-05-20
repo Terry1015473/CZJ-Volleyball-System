@@ -11,8 +11,16 @@ import Overview from './Overview';
 function App() {
   const [user, setUser] = useState(null);
   const [showOverview, setShowOverview] = useState(false);
+  const secretcode = import.meta.env.VITE_INTERNAL_ACCESS_CODE;
+  const [password, setPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
 
   const handleLogin = async () => {
+    if (password != secretcode){
+      setPasswordError('密碼錯誤，請重新輸入');
+      return;
+    }
+    setPasswordError('');
     const result = await signInWithPopup(auth, provider);
     setUser(result.user);
   };
@@ -48,7 +56,17 @@ function App() {
         {/* <Schedule user={user}/> */}
         </>
       ) : (
-        <button onClick={handleLogin}>使用 Google 登入</button>
+        <div>
+          <input
+            type="password"
+            placeholder='請輸入密碼'
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            style = {{ marginRight: '8px'}}
+          />
+          <button onClick={handleLogin}>使用 Google 登入</button>
+          {passwordError && <p style={{ color: 'red' }}>{passwordError}</p>}
+        </div>
       )}
     </div>
   );
