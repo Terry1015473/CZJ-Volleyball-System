@@ -17,7 +17,7 @@ function App() {
 
   const handleLogin = async () => {
     if (password != secretcode){
-      setPasswordError('密碼錯誤，請重新輸入');
+      setPasswordError('密碼錯誤，請重新輸入!');
       return;
     }
     setPasswordError('');
