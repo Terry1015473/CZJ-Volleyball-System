@@ -123,8 +123,9 @@ function Schedule({ user }) {
         //   onMouseLeave={handleMouseLeave}
           onClick={ (e) => {
             if (!name){
-                const offsetX = Math.random() * 100 -50;
-                const offsetY = Math.random() * 100 -50;
+                const offsetX = Math.random() * 500 -50;
+                const offsetY = Math.random() * 500 -50;
+                e.target.style.transform = 'transform 0.2s ease'
                 e.target.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
             } else{
               handleSubmit();

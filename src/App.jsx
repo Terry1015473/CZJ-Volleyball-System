@@ -27,7 +27,8 @@ function App() {
       setUser(currentUser);
     });
     const ua = navigator.userAgent || navigator.vendor || window.opera;
-    if (ua.includes(['Line', 'instagram'])) {
+    const isInAppBrowser = /Line|Instagram|FBAN|FBAV/.test(navigator.userAgent);
+    if (ua.includes('Line') || ua.includes('Instagram' || isInAppBrowser)) {
       alert('請使用瀏覽器打開此頁面，以正常使用登入功能');
     }
     return () => unsub();
