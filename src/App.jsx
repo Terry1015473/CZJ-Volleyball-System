@@ -7,6 +7,8 @@ import './App.css';
 import Login from './Login';
 import Schedule from './Schedule'
 import Overview from './Overview';
+import LottieAnimation from './LottieAnimation';
+import Footer from './Footer';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -44,7 +46,8 @@ function App() {
 
   return (
     <div style={{ padding: '20px', fontFamily: 'sans-serif' }}>
-      <h1>CZJ-Volleyball-System</h1>
+      <h1>Welcome to CZJ-Volleyball-System</h1>
+      <LottieAnimation/>
       {user ? (
         <>
         <p>歡迎 {user.displayName}</p>
@@ -64,10 +67,23 @@ function App() {
             onChange={(e) => setPassword(e.target.value)}
             style = {{ marginRight: '8px'}}
           />
-          <button onClick={handleLogin}>使用 Google 登入</button>
+          <button 
+            onClick={handleLogin}
+            style={{
+            padding: '10px 20px',
+            fontSize: '16px',
+            borderRadius: '50px',
+            backgroundColor: '	#6C6C6C',
+            margin: '20px',
+            color: 'white',
+            border: 'none',
+            cursor: 'pointer',
+            position: 'relative',
+            }}>使用 Google 登入</button>
           {passwordError && <p style={{ color: 'red' }}>{passwordError}</p>}
         </div>
       )}
+      <Footer />
     </div>
   );
 }
