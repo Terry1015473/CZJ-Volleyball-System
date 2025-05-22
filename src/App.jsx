@@ -53,7 +53,7 @@ function App() {
           <div style={{ marginBottom: '20px' }}>
             <button onClick={handleLogout} className="spotify-button" style={{ marginRight: '10px' }}>登出</button>
             <button onClick={() => setShowOverview(!showOverview)} className="spotify-button">
-              {showOverview ? '返回登記畫面' : '查看出席總覽'}
+              {showOverview ? '返回登記畫面' : '前三最多人的時段'}
             </button>
           </div>
           <div className="card">
