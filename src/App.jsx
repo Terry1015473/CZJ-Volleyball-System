@@ -45,45 +45,39 @@ function App() {
   }, []);
 
   return (
-    <div style={{ padding: '20px', fontFamily: 'sans-serif' }}>
-      <h1>Welcome to CZJ-Volleyball-System</h1>
+    <div className="container">
+      <h1 className="header_title">🏐 CZJ-Volleyball-System</h1>
       {user ? (
         <>
-        <p>歡迎 {user.displayName}</p>
-        <button onClick={handleLogout}>登出</button>
-        <button onClick={() => setShowOverview(!showOverview)}>
-          {showOverview ? '返回登記畫面' : '查看出席總覽'}
-        </button>
-        {showOverview ? <Overview/> : <Schedule user={user} />}
-        {/* <Schedule user={user}/> */}
+          <p>歡迎 <strong style={{ color: 'var(--accent-color)' }}>{user.displayName}</strong></p>
+          <div style={{ marginBottom: '20px' }}>
+            <button onClick={handleLogout} className="spotify-button" style={{ marginRight: '10px' }}>登出</button>
+            <button onClick={() => setShowOverview(!showOverview)} className="spotify-button">
+              {showOverview ? '返回登記畫面' : '查看出席總覽'}
+            </button>
+          </div>
+          <div className="card">
+            {showOverview ? <Overview /> : <Schedule user={user} />}
+          </div>
         </>
       ) : (
         <div>
-          <LottieAnimation/>
+          <LottieAnimation />
           <input
             type="password"
-            placeholder='請輸入密碼'
+            placeholder="請輸入密碼"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            style = {{ marginRight: '8px'}}
+            className="input-field"
+            style={{marginBottom: '20px'}}
           />
-          <button 
-            onClick={handleLogin}
-            style={{
-            padding: '10px 20px',
-            fontSize: '16px',
-            borderRadius: '50px',
-            backgroundColor: '	#6C6C6C',
-            margin: '20px',
-            color: 'white',
-            border: 'none',
-            cursor: 'pointer',
-            position: 'relative',
-            }}>使用 Google 登入</button>
-          {passwordError && <p style={{ color: 'red' }}>{passwordError}</p>}
+          <br />
+          <button onClick={handleLogin} className="spotify-button">使用 Google 登入</button>
+          {passwordError && <p style={{ color: 'red', marginBottom: '100px'}}>{passwordError}</p>}
+          <Footer />
         </div>
       )}
-      <Footer />
+      
     </div>
   );
 }

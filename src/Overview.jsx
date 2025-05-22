@@ -9,65 +9,75 @@ const timeLabels = {
 };
 
 function Overview() {
-  const [summary, setSummary] = useState({});
+  const [topTimeslots, setTopTimeslots] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchAllAvailability = async () => {
-      const querySnapshot = await getDocs(collection(db, 'availability'));
-      const stats = {};
+    const fetchOverviewData = async () => {
+      const scheduleSnapshot = await getDocs(collection(db, 'schedules'));
+      const stats = [];
 
-      querySnapshot.forEach(docSnap => {
-        const { dates, name } = docSnap.data();
-        const displayName = name || docSnap.id;
+      scheduleSnapshot.forEach(docSnap => {
+        const data = docSnap.data();
+        const timeString = data.time;
+        const participants = data.participants || [];
 
-        if (!dates) return;
+        const match = timeString.match(/^(\d{4}-\d{2}-\d{2})\((早上|下午|晚上)\)$/);
+        if (match) {
+          const date = match[1];
+          const timeLabel = match[2];
+          const slot = timeLabel === '早上' ? 'morning' : timeLabel === '下午' ? 'afternoon' : 'evening';
 
-        for (const [date, slots] of Object.entries(dates)) {
-          if (!stats[date]) stats[date] = {};
-
-          slots.forEach(slot => {
-            if (!stats[date][slot]) stats[date][slot] = [];
-            stats[date][slot].push(displayName);
+          stats.push({
+            key: `${date}_${slot}`,
+            date,
+            slot,
+            timeLabel,
+            participants: participants.map(p => p.nickname),
+            participantCount: participants.length,
+            createdBy: data.createdBy
           });
         }
       });
 
-      setSummary(stats);
+      const top3 = stats
+        .sort((a, b) => b.participantCount - a.participantCount)
+        .slice(0, 3);
+
+      setTopTimeslots(top3);
       setLoading(false);
     };
 
-    fetchAllAvailability();
+    fetchOverviewData();
   }, []);
 
   if (loading) return <p>讀取中...</p>;
 
-  // 過濾掉完全沒有人出席的日期
-  const filteredDates = Object.entries(summary).filter(([_, slots]) =>
-    Object.values(slots).some(arr => arr.length > 0)
-  );
-
   return (
     <div>
-      <h2>出席總覽</h2>
-      {filteredDates.length === 0 ? (
-        <p>目前尚無任何出席紀錄</p>
+      <h2 className="header">🔥 熱門時段 Top 3</h2>
+      {topTimeslots.length === 0 ? (
+        <p className="slot-item">目前沒有時段或參與者</p>
       ) : (
-        filteredDates.sort().map(([date, slots]) => (
-          <div key={date} style={{ marginBottom: '16px' }}>
-            <strong>{date}</strong>
-            <ul>
-              {['morning', 'afternoon', 'evening'].map(slot => {
-                const people = slots[slot] || [];
-                return people.length > 0 ? (
-                  <li key={slot}>
-                    {timeLabels[slot]}：{people.length} 人（{people.join(', ')})
-                  </li>
-                ) : null;
-              })}
-            </ul>
-          </div>
-        ))
+        <div className="slot-table">
+          {topTimeslots.map(({ key, date, slot, timeLabel, participants, participantCount, createdBy }) => (
+            <div key={key} className="date-block">
+              <div className="date-title">{date}（{timeLabel}）</div>
+
+              <div className="slot-item">
+                建立者: <span className="slot-label">{createdBy}</span>
+              </div>
+
+              <div className="slot-item">
+                <span className="slot-label">參與人數:</span> {participantCount} 人
+              </div>
+
+              <div className="slot-item">
+                <span className="slot-label">參與者:</span> <span className="slot-names">{participants.join(', ') || '無'}</span>
+              </div>
+            </div>
+          ))}
+        </div>
       )}
     </div>
   );

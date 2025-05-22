@@ -10,11 +10,11 @@ const LottieAnimation = () => {
       style={{
         position: 'fixed', // 固定在螢幕上
         top: 0,
-        left: 0,
+        left: 500,
         width: '100vw',
         height: '100vh',
-        zIndex: -1, // 放到最下層
-        opacity: 0.3, // 半透明，不干擾畫面
+        zIndex: 1, // 放到最下層
+        opacity: 0.2, // 半透明，不干擾畫面
         pointerEvents: 'none' // 確保點擊事件不會被擋住
       }}
     />
