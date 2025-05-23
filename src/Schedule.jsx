@@ -180,7 +180,7 @@ function Schedule({ user }) {
                   }}
                   className="spotify-button"
                 >
-                  我要參加
+                  +1
                 </button>
               ) : (
                 <button
@@ -188,7 +188,7 @@ function Schedule({ user }) {
                   onClick={() => cancelParticipation(slot.id, nickname)}
                   style={{ backgroundColor: ' #b3b3b3'}}
                 >
-                  取消參加
+                  -1
                 </button>
               )}
               {slot.createdBy === user.displayName && (
