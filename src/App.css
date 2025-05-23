@@ -218,3 +218,46 @@ body {
   background-color: #999;
   transform: scale(1.1);
 }
+
+@media (max-width: 600px) {
+  .header_title {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .container {
+    padding: 1rem;
+  }
+
+  .slot-table {
+    gap: 0.8rem;
+  }
+
+  .slot-row {
+    grid-template-columns: 1fr;
+    text-align: left;
+    padding: 1rem;
+    gap: 0.5rem;
+  }
+
+  .slot-buttons {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .slot-buttons button {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .input-field {
+    width: 100%;
+    font-size: 1rem;
+  }
+
+  .spotify-button {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+  }
+}

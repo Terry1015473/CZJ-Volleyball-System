@@ -127,7 +127,7 @@ function Schedule({ user }) {
 
   return (
     <div>
-      <h2 className="header">設定暱稱或是是直接送出參加資訊</h2>
+      <h2 className="header">設定暱稱或試試直接送出參加資訊</h2>
       <div style={{ marginBottom: '1.5rem' }}>
         <input
           type="text"
