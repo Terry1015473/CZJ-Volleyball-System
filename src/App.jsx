@@ -69,7 +69,7 @@ function App() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="input-field"
-            style={{marginBottom: '20px'}}
+            style={{marginBottom: '2rem'}}
           />
           <br />
           <button onClick={handleLogin} className="spotify-button">使用 Google 登入</button>
