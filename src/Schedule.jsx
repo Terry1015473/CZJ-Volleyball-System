@@ -184,8 +184,9 @@ function Schedule({ user }) {
                 </button>
               ) : (
                 <button
-                  className="cancel-btn"
+                  className="spotify-button"
                   onClick={() => cancelParticipation(slot.id, nickname)}
+                  style={{ backgroundColor: ' #b3b3b3'}}
                 >
                   取消參加
                 </button>
@@ -194,7 +195,7 @@ function Schedule({ user }) {
                 <button
                   onClick={() => deleteTimeslot(slot.id)}
                   className="spotify-button"
-                  style={{ backgroundColor: '#d32f2f' }}
+                  style={{ backgroundColor: ' #d32f2f' }}
                 >
                   刪除時段
                 </button>
