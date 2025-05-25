@@ -62,7 +62,7 @@ function Overview() {
         <div className="slot-table">
           {topTimeslots.map(({ key, date, slot, timeLabel, participants, participantCount, createdBy }) => (
             <div key={key} className="date-block">
-              <div className="date-title">{date}（{timeLabel}）</div>
+              <div className="date-title">{date}({timeLabel})</div>
 
               <div className="slot-item">
                 建立者: <span className="slot-label">{createdBy}</span>
